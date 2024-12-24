@@ -8,7 +8,7 @@ namespace Hooks
 	struct LoadMovie
 	{
 
-		static constexpr frozen::unordered_map<std::string_view, RE::GFxMovieView::ScaleModeType, 23> modeMap = {
+		static constexpr frozen::unordered_map<std::string_view, RE::GFxMovieView::ScaleModeType, 24> modeMap = {
 			{"LoadWaitSpinner"sv, RE::GFxMovieView::ScaleModeType::kShowAll},
 			{"BarterMenu"sv, RE::GFxMovieView::ScaleModeType::kNoBorder},
 			{"ContainerMenu"sv, RE::GFxMovieView::ScaleModeType::kNoBorder},
@@ -32,6 +32,7 @@ namespace Hooks
 			{"Map"sv, RE::GFxMovieView::ScaleModeType::kShowAll},
 			{"Quest_Journal"sv, RE::GFxMovieView::ScaleModeType::kShowAll},
 			{"StatsMenu"sv, RE::GFxMovieView::ScaleModeType::kNoBorder},
+			{"ConstructibleObjectMenu"sv, RE::GFxMovieView::ScaleModeType::kNoBorder},
 		};
 
 		static bool thunk(RE::BSScaleformManager* a_scaleformManager,
@@ -41,6 +42,8 @@ namespace Hooks
 			RE::GFxMovieView::ScaleModeType a_mode,
 			float a_backgroundAlpha)
 		{
+
+			//SKSE::log::info("Name: {} - mode: {}", a_fileName, std::to_underlying(a_mode));
 
 			const auto it = modeMap.find(a_fileName);
 			if (it != modeMap.end())
