@@ -35,10 +35,13 @@ SKSEPluginLoad(const SKSE::LoadInterface* skse)
 	spdlog::flush_on(spdlog::level::info);
 #endif
 
-	SKSE::log::info("Game version: {}", skse->RuntimeVersion());
 
-	if (skse->RuntimeVersion() < SKSE::RUNTIME_SSE_1_6_1130) {
-		const std::string_view message = std::format("RemovedWidescreenScale is not required for version {} and below", skse->RuntimeVersion());
+	const auto version = skse->RuntimeVersion();
+
+	SKSE::log::info("Game version: {}", version);
+
+	if (version < SKSE::RUNTIME_SSE_1_6_1130) {
+		const std::string_view message = std::format("RemovedWidescreenScale is not required for version {} and below", version);
 		SKSE::stl::report_and_fail(message);
 	}
 
