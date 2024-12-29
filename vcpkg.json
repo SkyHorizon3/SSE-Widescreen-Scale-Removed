@@ -1,6 +1,6 @@
 {
   "name": "widescreenscaleremoved",
-  "version-semver": "1.0.1",
+  "version-semver": "1.0.2",
   "description": "",
   "license": "GPL-3.0",
   "dependencies": [
@@ -9,7 +9,8 @@
     "catch2",
     "rapidcsv",
     "xbyak",
-    "frozen"
+    "frozen",
+    "simpleini"
   ],
   "builtin-baseline": "b545373a9a536dc559dac8583467a21497a0e897"
 }

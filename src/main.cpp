@@ -1,4 +1,18 @@
 ﻿#include "Hooks.h"
+#include <SimpleIni.h>
+
+bool debugLog = false;
+
+void LoadINI()
+{
+	const auto path = std::format("Data/SKSE/Plugins/{}.ini", Plugin::NAME);
+
+	CSimpleIniA ini;
+	ini.SetUnicode();
+	ini.LoadFile(path.c_str());
+
+	debugLog = ini.GetBoolValue("Debug", "EnableDebugLog");
+}
 
 #define DLLEXPORT __declspec(dllexport)
 extern "C" DLLEXPORT constinit auto SKSEPlugin_Version = []()
@@ -24,24 +38,28 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface*, 
 SKSEPluginLoad(const SKSE::LoadInterface* skse)
 {
 	SKSE::Init(skse, true);
+	LoadINI();
 
 	spdlog::set_pattern("[%H:%M:%S:%e] [%l] %v"s);
 
-#ifndef NDEBUG
-	spdlog::set_level(spdlog::level::trace);
-	spdlog::flush_on(spdlog::level::trace);
-#else
-	spdlog::set_level(spdlog::level::info);
-	spdlog::flush_on(spdlog::level::info);
-#endif
+
+	if (debugLog)
+	{
+		spdlog::set_level(spdlog::level::trace);
+		spdlog::flush_on(spdlog::level::trace);
+	}
+	else
+	{
+		spdlog::set_level(spdlog::level::info);
+		spdlog::flush_on(spdlog::level::info);
+	}
 
 
 	const auto version = skse->RuntimeVersion();
-
 	SKSE::log::info("Game version: {}", version);
 
 	if (version < SKSE::RUNTIME_SSE_1_6_1130) {
-		const std::string_view message = std::format("RemovedWidescreenScale is not required for version {} and below", version);
+		const auto message = std::format("RemovedWidescreenScale is not required for version {} and below", version);
 		SKSE::stl::report_and_fail(message);
 	}
 

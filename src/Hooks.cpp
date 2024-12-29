@@ -44,7 +44,7 @@ namespace Hooks
 			float a_backgroundAlpha)
 		{
 
-			//SKSE::log::info("Name: {} - mode: {}", a_fileName, std::to_underlying(a_mode));
+			SKSE::log::debug("fileName: {} - mode: {}", a_fileName, std::to_underlying(a_mode));
 
 			const auto it = modeMap.find(a_fileName);
 			if (it != modeMap.end())
