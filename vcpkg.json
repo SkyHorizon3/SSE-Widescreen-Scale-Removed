@@ -1,16 +1,17 @@
 {
   "name": "widescreenscaleremoved",
-  "version-semver": "1.0.2",
+  "version-string": "1.0.2",
   "description": "",
   "license": "GPL-3.0",
   "dependencies": [
-    "spdlog",
-    "directxtk",
-    "catch2",
-    "rapidcsv",
-    "xbyak",
-    "frozen",
+    "commonlibsse-ng",
     "simpleini"
   ],
-  "builtin-baseline": "b545373a9a536dc559dac8583467a21497a0e897"
+  "builtin-baseline": "cd1099f42a3c2ee28dc68e3db3f6f88658982736",
+  "overrides": [
+    {
+      "name": "xbyak",
+      "version": "7.23.1"
+    }
+  ]
 }

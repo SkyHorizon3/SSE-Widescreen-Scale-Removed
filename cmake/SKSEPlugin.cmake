@@ -41,7 +41,7 @@ if (CMAKE_GENERATOR MATCHES "Visual Studio")
     set(SC_RELEASE_OPTS "/Zi;/fp:fast;/GL;/Gy-;/Gm-;/Gw;/sdl-;/GS-;/guard:cf-;/O2;/Ob2;/Oi;/Ot;/Oy;/fp:except-")
     
     target_compile_options("${PROJECT_NAME}" PRIVATE
-        /MP /await /W4 /WX /permissive- /Zc:alignedNew /Zc:auto /Zc:__cplusplus /Zc:externC /Zc:externConstexpr
+        /MP /W4 /WX /permissive- /Zc:alignedNew /Zc:auto /Zc:__cplusplus /Zc:externC /Zc:externConstexpr
         /Zc:forScope /Zc:hiddenFriend /Zc:implicitNoexcept /Zc:lambda /Zc:noexceptTypes /Zc:preprocessor /Zc:referenceBinding
         /Zc:rvalueCast /Zc:sizedDealloc /Zc:strictStrings /Zc:ternary /Zc:threadSafeInit /Zc:trigraphs /Zc:wchar_t
         /wd4200 # nonstandard extension used: zero-sized array in struct/union
@@ -60,9 +60,9 @@ if (CMAKE_GENERATOR MATCHES "Visual Studio")
     )
 endif()
 
-# Find required packages (adjust as needed)
-add_subdirectory(${CMAKE_SOURCE_DIR}/extern/CommonLibSSE-NG CommonLibSSE)
-find_package(spdlog CONFIG REQUIRED)
+# Find required packages
+find_package(CommonLibSSE CONFIG REQUIRED)
+find_package(DirectXTK CONFIG REQUIRED)
 
 # Include directories and libraries
 target_include_directories("${PROJECT_NAME}" PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
