@@ -1,13 +1,13 @@
 {
   "name": "widescreenscaleremoved",
-  "version-string": "1.0.2",
+  "version-string": "1.0.3",
   "description": "",
   "license": "GPL-3.0",
   "dependencies": [
     "commonlibsse-ng",
     "simpleini"
   ],
-  "builtin-baseline": "cd1099f42a3c2ee28dc68e3db3f6f88658982736",
+  "builtin-baseline": "96fd599859beaed2ae891a2b2982746f28611b07",
   "overrides": [
     {
       "name": "xbyak",
