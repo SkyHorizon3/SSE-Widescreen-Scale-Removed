@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(WidescreenScaleRemoved VERSION 1.0.3 LANGUAGES CXX)
+project(WidescreenScaleRemoved VERSION 1.0.4 LANGUAGES CXX)
 
 # Set your project version and specify C++ standard
 set(CMAKE_CXX_STANDARD 23)

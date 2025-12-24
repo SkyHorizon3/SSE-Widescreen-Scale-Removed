@@ -25,7 +25,7 @@ namespace stl
 				for (size_t i = 0; i < a_originalByteLength; i++)
 					db(*reinterpret_cast<uint8_t*>(a_originalFuncAddr + i));
 
-				jmp(qword[rip]);
+				jmp(ptr[rip]);
 				dq(a_originalFuncAddr + a_originalByteLength);
 			}
 		};
