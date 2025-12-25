@@ -5,7 +5,8 @@
   "license": "GPL-3.0",
   "dependencies": [
     "commonlibsse-ng",
-    "simpleini"
+    "simpleini",
+    "clib-util"
   ],
   "builtin-baseline": "ee12231b20c95013c6638d845d04c91559a1d1ff"
 }

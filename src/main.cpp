@@ -1,31 +1,66 @@
-﻿#include <SimpleIni.h>
-
+﻿
 using Mode = RE::GFxMovieView::ScaleModeType;
 
 struct LoadMovie
 {
-	static std::unordered_map<std::string_view, Mode> modeMap;
+	static std::optional<Mode> getMode(const char* a_fileName)
+	{
+		switch (string::const_hash(a_fileName))
+		{
+		case "LoadWaitSpinner"_h:
+		case "FavoritesMenu"_h:
+		case "HUDMenu"_h:
+		case "LevelUpMenu"_h:
+		case "LoadingMenu"_h:
+		case "SafeZone"_h:
+		case "SleepWaitMenu"_h:
+		case "Titles"_h:
+		case "TutorialMenu"_h:
+		case "TweenMenu"_h:
+		case "Map"_h:
+		case "Quest_Journal"_h:
+			return Mode::kShowAll;
+		case "BarterMenu"_h:
+		case "ContainerMenu"_h:
+		case "CraftingMenu"_h:
+		case "DialogueMenu"_h:
+		case "InventoryMenu"_h:
+		case "LockpickingMenu"_h:
+		case "MagicMenu"_h:
+		case "MessageBox"_h:
+		case "RaceSex_menu"_h:
+		case "TrainingMenu"_h:
+		case "StatsMenu"_h:
+		case "ConstructibleObjectMenu"_h: // replaces CraftingMenu https://www.nexusmods.com/skyrimspecialedition/mods/81409
+			return Mode::kNoBorder;
+		default:
+			return std::nullopt;
+		}
+	}
 
 	static bool thunk(RE::BSScaleformManager* a_scaleformManager,
 		RE::IMenu* a_menu,
 		RE::GPtr<RE::GFxMovieView>& a_viewOut,
 		const char* a_fileName,
-		RE::GFxMovieView::ScaleModeType a_mode,
+		Mode a_mode,
 		float a_backgroundAlpha)
 	{
 
-		SKSE::log::debug("menu: {} - mode: {}", a_fileName, std::to_underlying(a_mode));
-
-		const auto it = modeMap.find(a_fileName);
-		if (it != modeMap.end())
+		if (a_fileName != nullptr && a_fileName[0] != '\0')
 		{
-			return func(
-				a_scaleformManager,
-				a_menu,
-				a_viewOut,
-				a_fileName,
-				it->second,
-				a_backgroundAlpha);
+			SKSE::log::debug("menu: {} - mode: {}", a_fileName, std::to_underlying(a_mode));
+
+			const auto mode = getMode(a_fileName);
+			if (mode.has_value())
+			{
+				return func(
+					a_scaleformManager,
+					a_menu,
+					a_viewOut,
+					a_fileName,
+					mode.value(),
+					a_backgroundAlpha);
+			}
 		}
 
 		return func(
@@ -45,33 +80,6 @@ struct LoadMovie
 
 		SKSE::log::info("Hooked BSScaleformManager::LoadMovie");
 	}
-};
-
-std::unordered_map<std::string_view, Mode> LoadMovie::modeMap = {
-		{"LoadWaitSpinner"sv, Mode::kShowAll},
-		{"BarterMenu"sv, Mode::kNoBorder},
-		{"ContainerMenu"sv, Mode::kNoBorder},
-		{"CraftingMenu"sv, Mode::kNoBorder},
-		{"DialogueMenu"sv, Mode::kNoBorder},
-		{"FavoritesMenu"sv, Mode::kShowAll},
-		{"HUDMenu"sv, Mode::kShowAll},
-		{"InventoryMenu"sv, Mode::kNoBorder},
-		{"LevelUpMenu"sv, Mode::kShowAll},
-		{"LoadingMenu"sv, Mode::kShowAll},
-		{"LockpickingMenu"sv, Mode::kNoBorder},
-		{"MagicMenu"sv, Mode::kNoBorder},
-		{"MessageBox"sv, Mode::kNoBorder},
-		{"RaceSex_menu"sv, Mode::kNoBorder},
-		{"SafeZone"sv, Mode::kShowAll},
-		{"SleepWaitMenu"sv, Mode::kShowAll},
-		{"Titles"sv, Mode::kShowAll},
-		{"TrainingMenu"sv, Mode::kNoBorder},
-		{"TutorialMenu"sv, Mode::kShowAll},
-		{"TweenMenu"sv, Mode::kShowAll},
-		{"Map"sv, Mode::kShowAll},
-		{"Quest_Journal"sv, Mode::kShowAll},
-		{"StatsMenu"sv, Mode::kNoBorder},
-		{"ConstructibleObjectMenu"sv, Mode::kNoBorder},
 };
 
 bool LoadINI()

@@ -3,11 +3,14 @@
 #include "RE/Skyrim.h"
 #include "SKSE/SKSE.h"
 
-using namespace std::literals;
-
 #include <xbyak/xbyak.h>
+#include <ClibUtil/string.hpp>
+#include <SimpleIni.h>
 #include "Plugin.h"
 
+using namespace std::literals;
+using namespace clib_util::string::literals;
+namespace string = clib_util::string;
 
 namespace stl
 {
