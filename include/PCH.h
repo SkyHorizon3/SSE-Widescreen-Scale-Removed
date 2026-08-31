@@ -4,9 +4,12 @@
 #include "SKSE/SKSE.h"
 
 #include <xbyak/xbyak.h>
+#include <ClibUtil/string.hpp>
 #include "Plugin.h"
 
 using namespace std::literals;
+using namespace clib_util::string::literals;
+namespace string = clib_util::string;
 
 namespace stl
 {
